@@ -3,6 +3,7 @@ let productsHTML='';
 
 //looping through each product and creating HTML
 products.forEach((product) => {
+
     productsHTML+=`
             <div class="product-container">
                 <div class="product-image-container">
@@ -48,7 +49,7 @@ products.forEach((product) => {
                     Added
                 </div>
 
-                <button class="add-to-cart-button button-primary js-add-to-cart" data-product-name="${product.name}">
+                <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
                     Add to Cart
                 </button>
                 </div>
@@ -65,14 +66,28 @@ document.querySelectorAll('.js-add-to-cart')
 .forEach(button => {
     button.addEventListener('click', () => {
 
-        const productName= button.dataset.productName;
-        //adding product to the cart
-        console.log(productName);
-        //push product to cart array
-        cart.push({
-            productName,
-            quantity: 1, //default quantity is 1
-            });
-        console.log(cart);
+        const productId= button.dataset.productId;
+
+    let foundInCart;
+        cart.forEach(item => {
+            if (item.productId === productId) {
+                foundInCart = item;
+            }
+        });
+        if (foundInCart) {
+            //if product is already in cart, increase its quantity by 1
+            foundInCart.quantity += 1;
+            console.log(cart);
+            return;
+        } else {
+            //if product is not in cart, add it with quantity 1
+            //push product to cart array
+            cart.push({
+                productId,
+                quantity: 1, //default quantity is 1
+                });
+            console.log(cart);
+        }
+        
     });
 });
