@@ -1,35 +1,7 @@
-const products = [
-    {
-        image:'images/products/athletic-cotton-socks-6-pairs.jpg',
-        name:'Black and Gray Athletic Cotton Socks - 6 Pairs',
-        rating:{
-            stars:4.5,
-            count: 87
-            },
-        priceCents: 1090
-    },
-    {
-        image:'images/products/intermediate-composite-basketball.jpg',
-        name:'intermediate Size Basketball',
-        rating:{
-            stars:4.0,
-            count: 127
-            },
-        priceCents: 2095
-    },
-    {
-        image:'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
-        name:'Adults Plain Cotton T-Shirt - 2 Pack',
-        rating:{
-            stars:4.5,
-            count: 56
-            },
-        priceCents: 799
-    }];
-
+//generating products grid HTML dynamically
 let productsHTML='';
 
-
+//looping through each product and creating HTML
 products.forEach((product) => {
     productsHTML+=`
             <div class="product-container">
@@ -76,11 +48,31 @@ products.forEach((product) => {
                     Added
                 </div>
 
-                <button class="add-to-cart-button button-primary">
+                <button class="add-to-cart-button button-primary js-add-to-cart" data-product-name="${product.name}">
                     Add to Cart
                 </button>
                 </div>
     `;
 });
+//above here we can send  (just use data- and the name spaced with (-) )  data-product-name attribute to identify which product is added to cart
 
+//inserting products HTML into the DOM
 document.querySelector('.js-products-grid').innerHTML= productsHTML;
+
+
+//adding event listeners to all add to cart buttons
+document.querySelectorAll('.js-add-to-cart')
+.forEach(button => {
+    button.addEventListener('click', () => {
+
+        const productName= button.dataset.productName;
+        //adding product to the cart
+        console.log(productName);
+        //push product to cart array
+        cart.push({
+            productName,
+            quantity: 1, //default quantity is 1
+            });
+        console.log(cart);
+    });
+});
