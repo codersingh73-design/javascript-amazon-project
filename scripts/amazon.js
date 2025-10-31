@@ -1,5 +1,14 @@
-import {cart} from '../data/cart.js';
+//Study
+// import * as syntax imports everything from the module as an object
+// import {specific} syntax imports specific named exports from the module
+// like import * as cartModule from '../data/cart.js';
+// then can access cartModule.cart and cartModule.addToCart
+
+import {cart,addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
+
+
+
 
 //generating products grid HTML dynamically
 let productsHTML='';
@@ -65,6 +74,20 @@ products.forEach((product) => {
 //inserting products HTML into the DOM
 document.querySelector('.js-products-grid').innerHTML= productsHTML;
 
+    //Study
+    // functions created using function keyword can be called before its declaration due to hoisting
+    // arrow functions do not support hoisting
+
+// function to update cart quantity in the header at HTML page s
+function updateCartQuantity() {
+        // Calculate total cart quantity (moved outside if/else)
+        let cartquantity = 0;
+        cart.forEach(cartItem => {
+            cartquantity += cartItem.quantity;
+        });
+        document.querySelector('.js-cart-quantity').innerHTML = cartquantity;
+
+}
 
 //adding event listeners to all add to cart buttons
 document.querySelectorAll('.js-add-to-cart')
@@ -76,30 +99,9 @@ document.querySelectorAll('.js-add-to-cart')
         // also the name don't reqiure - b/w the name in (HTML product-id) = (productId here in JS)
         const productId= button.dataset.productId;
 
-    let foundInCart;
-        cart.forEach(item => {
-            if (item.productId === productId) {
-                foundInCart = item;
-            }
-        });
-        if (foundInCart) {
-            //if product is already in cart, increase its quantity by 1
-            foundInCart.quantity += 1;
-        } else {
-            //if product is not in cart, add it with quantity 1
-            //push product to cart array
-            cart.push({
-                productId,
-                quantity: 1, //default quantity is 1
-            });
-        }
+        addToCart(productId);
 
-        // Calculate total cart quantity (moved outside if/else)
-        let cartquantity = 0;
-        cart.forEach(item => {
-            cartquantity += item.quantity;
-        });
-        document.querySelector('.js-cart-quantity').innerHTML = cartquantity;
+        updateCartQuantity();
         
     });
 });
