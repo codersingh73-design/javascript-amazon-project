@@ -98,7 +98,6 @@ function updateCartQuantity() {
 document.querySelectorAll('.js-add-to-cart')
 .forEach(button => {
     button.addEventListener('click', () => {
-
         //Study
         // now were are retriving the data sent by Data- attribute of an HTMl tag. by using dataset object property,
         // also the name don't reqiure - b/w the name in (HTML product-id) = (productId here in JS)
