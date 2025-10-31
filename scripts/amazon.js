@@ -7,6 +7,10 @@
 import {cart,addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 
+//Study (Main idea of javascript))
+//1.  Save the data 
+//2. genrate HTML dynamically based on data
+//3. Make it interactive (event listeners etc)
 
 
 
@@ -100,7 +104,7 @@ document.querySelectorAll('.js-add-to-cart')
         const productId= button.dataset.productId;
 
         addToCart(productId);
-
+        console.log(cart);
         updateCartQuantity();
         
     });
