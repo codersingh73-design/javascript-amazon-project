@@ -1,5 +1,6 @@
 import {cart,addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
+import { moneyFormat } from './utils/money.js';
 
 //Study
 // the fact that we only stored productId and quantity in cart,
@@ -36,7 +37,7 @@ cart.forEach(cartItem => {
                     ${matchedProduct.name}
                 </div>
                 <div class="product-price">
-                    $${(matchedProduct.priceCents / 100).toFixed(2)}
+                    $${moneyFormat(matchedProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                     <span>
