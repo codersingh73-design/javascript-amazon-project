@@ -1,3 +1,6 @@
+import {cart} from '../data/cart.js';
+import {products} from '../data/products.js';
+
 //generating products grid HTML dynamically
 let productsHTML='';
 
@@ -55,6 +58,8 @@ products.forEach((product) => {
                 </div>
     `;
 });
+
+//Study
 //above here we can send  (just use data- and the name spaced with (-) )  data-product-name attribute to identify which product is added to cart
 
 //inserting products HTML into the DOM
@@ -66,6 +71,9 @@ document.querySelectorAll('.js-add-to-cart')
 .forEach(button => {
     button.addEventListener('click', () => {
 
+        //Study
+        // now were are retriving the data sent by Data- attribute of an HTMl tag. by using dataset object property,
+        // also the name don't reqiure - b/w the name in (HTML product-id) = (productId here in JS)
         const productId= button.dataset.productId;
 
     let foundInCart;
@@ -92,7 +100,6 @@ document.querySelectorAll('.js-add-to-cart')
             cartquantity += item.quantity;
         });
         document.querySelector('.js-cart-quantity').innerHTML = cartquantity;
-        console.log(cart);
         
     });
 });
