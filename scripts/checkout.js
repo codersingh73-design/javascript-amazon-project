@@ -1,4 +1,4 @@
-import {cart,addToCart} from '../data/cart.js';
+import {cart,addToCart,removeFromCart,removeFromCartAlt} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {moneyFormat} from './utils/money.js';
 
@@ -10,7 +10,7 @@ import {moneyFormat} from './utils/money.js';
 let cartSummaryHTML= '';
 
 ////Genrate HTML dynamically based on cart data looping through each cart item
-//saved cart data in mached product details and generating HTML
+//saved cart data in mached product details and generating HTML for cart summary
 cart.forEach(cartItem => {
     const productId= cartItem.productId;
 
@@ -23,7 +23,7 @@ cart.forEach(cartItem => {
 
     cartSummaryHTML +=
     `
-        <div class="cart-item-container">
+        <div class="cart-item-container js-cart-item-container-${matchedProduct.id}">
             <div class="delivery-date">
                 Delivery date: Wednesday, June 15
             </div>
@@ -46,7 +46,7 @@ cart.forEach(cartItem => {
                     <span class="update-quantity-link link-primary">
                     Update
                     </span>
-                    <span class="delete-quantity-link link-primary">
+                    <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchedProduct.id}">
                     Delete
                     </span>
                 </div>
@@ -106,4 +106,18 @@ cart.forEach(cartItem => {
 
 //inserting generated HTML to DOM
 document.querySelector('.js-order-summary').innerHTML= cartSummaryHTML;
+
+//Study
+// we have added js-delete-link class to delete link above
+// now we will add event listener to all delete links to remove the corresponding cart item when clicked
+const deleteproductFromCart = document.querySelectorAll('.js-delete-link');
+deleteproductFromCart.forEach(deletelink =>{
+    deletelink.addEventListener('click',()=>{
+        const productId= deletelink.dataset.productId;
+        removeFromCart(productId);
+         //update the html for checkout page after removing item from cart
+        document.querySelector(`.js-cart-item-container-${productId}`).remove();
+    })
+})
+
 
